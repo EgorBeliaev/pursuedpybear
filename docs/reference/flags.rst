@@ -5,14 +5,6 @@ Flags
 .. automodule:: ppb.flags
 
 --------------
-System flags
---------------
-
-These are various flags defined for ppb engine use.
-
-.. autoclass:: ppb.flags.DoNotRender
-
---------------
 Base classes
 --------------
 
