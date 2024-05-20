@@ -137,7 +137,7 @@ class RotatableMixin:
     rotation = 0
     # This is necessary to make facing do the thing while also being adjustable.
     #: The baseline vector, representing the "front" of the sprite
-    basis = Vector(0, -1)
+    basis = Vector(0, 1)
     # Considered making basis private, the only reason to do so is to
     # discourage people from relying on it as data.
 
@@ -442,3 +442,10 @@ class RectangleSprite(RectangleShapeMixin, RenderableMixin, RotatableMixin, Base
     with the mixins :class:`RotatableMixin`, :class:`RenderableMixin`, and
     :class:`RectangleShapeMixin`.
     """
+
+    def __image__(self):
+        image = super().__image__()
+        # Override the dimensions of the ``Image`` so that the missing shape
+        # matches this sprite's dimensions.
+        image._file_missing_dimensions = (self.width, self.height)
+        return image

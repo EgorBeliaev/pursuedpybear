@@ -57,3 +57,10 @@ Halle Jones|HJones@aliacy.com||
 [Avarice M](https://github.com/avarice-m) | | |
 [Jami Schwarzwalder](https://github.com/jschwarzwalder) | |
 [Jill Slind](https://github.com/jillslind) | [jill.slind@gmail.com](jill.slind@gmail.com) | |
+[Darrell Jenkins](https://github.com/darrellajenkins). | [darrellajenkins@gmail.com] (darrellajenkins@gmail.com). | |
+[David Lord](https://github.com/davidism) | | |
+[Julie Fisher](https://github.com/julielinx) | | |
+[Sheena O'Connell](https://github.com/sheenarbw) | [@sheena@fosstodon.org](https://fosstodon.org/@sheena) | [blog](https://sheenaoc.com/) |
+[Quinn Redwoods](https://github.com/qredwoods) | | |
+[Jeff Epler](https://github.com/jepler) | | |
+[Mary Clark](https://github.com/marymclark) | [me@maryclark.net](me@maryclark.net) | | 

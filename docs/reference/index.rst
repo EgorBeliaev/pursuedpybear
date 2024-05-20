@@ -29,4 +29,5 @@ decisions are made, see the :doc:`/discussion/index` section.
    camera
    directions
    deprecations
+   system
    features/index

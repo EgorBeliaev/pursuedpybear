@@ -13,7 +13,7 @@ classes extensively in ppb, and you should be comfortable with them. Consider
 the `Python.org tutorial <https://docs.python.org/3/tutorial/index.html>`_ or
 `automate the boring stuff <http://automatetheboringstuff.com/>`_ to get started.
 
-Additionally, you need to have Python 3.8 or later on your machine. You can
+Additionally, you need to have Python 3.9 or later on your machine. You can
 install this via `Python.org <https://www.python.org/downloads/>`_ or
 `Anaconda <https://www.anaconda.com/python-3-7-package-build-out-miniconda-release/>`_
 whichever is more comfortable for you.
@@ -62,21 +62,6 @@ ready for installing ``ppb``:
 All Systems::
 
    pip install ppb
-
-
-Additionally, on Linux only you must install the SDL library:
-
-Debian, Ubuntu::
-
-   sudo apt install libsdl2-2.0-0 libsdl2-mixer-2.0-0 libsdl2-image-2.0-0 libsdl2-gfx-1.0-0 libsdl2-ttf-2.0-0
-
-Fedora, CentOS, RHEL::
-
-    sudo dnf install SDL2 SDL2_ttf SDL2_image SDL2_gfx SDL2_mixer libmodplug
-
-Arch, Manjaro::
- 
-    sudo pacman -S sdl2 sdl2_ttf sdl2_image sdl2_gfx sdl2_mixer
 
 You should see a few libraries get put together in your terminal, and when
 you have a prompt again, we're ready to go!
@@ -155,7 +140,7 @@ Taking Control
 This is cool, but most people expect a game to be something you can interact
 with. Let's use keyboard controls to move our ``Player`` around. First things
 first, we have some new things we want to import:
-
+  
 ``main.py``::
 
    import ppb
@@ -166,6 +151,9 @@ These are the classes we'll want in the next section to work.
 
 The next step is we'll need to redo out ``Player`` class. Go ahead and delete
 it, and put this in its place:
+
+.. warning::
+   Make sure to delete the existing ``Player``
 
 ``main.py``::
 
@@ -181,8 +169,8 @@ This new ``Player`` moves a certain distance based on time, and a direction
 vector and its own speed. Right now, our direction is not anything (it's the
 zero-vector), but we'll change that in a moment. For now, go ahead and run the
 program a few times, changing the parameters to the ``direction`` ``Vector`` and
-the speed and see what happens. You can also modify ``position`` to see where
-you like your ship.
+the speed and see what happens. You can also modify ``position`` to change the 
+``Player`` starting position.
 
 Now that you're comfortable with the base mechanics of our new class, revert
 your changes to ``position``, ``speed``, and ``direction``. Then we can wire up

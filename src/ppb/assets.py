@@ -106,7 +106,7 @@ class Rectangle(Shape):
 
     def _draw_shape(self, renderer, rgb, **_):
         sdl_call(
-            SDL_SetRenderDrawColor, renderer, *rgb, 255,
+            SDL_SetRenderDrawColor, renderer, *(int(c) for c in rgb), 255,
             _check_error=lambda rv: rv < 0
         )
         sdl_call(

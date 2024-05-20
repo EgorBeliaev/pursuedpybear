@@ -69,24 +69,43 @@ is a collection of issues we believe are suitable for people new to PPB.
 You are welcome to work on any issue you would like, we just think those
 are a good starting place for those that are unfamiliar with the code base.
 
-Now you need to [fork ppb][fork]. Once you've done that, go through
-either column and find a ticket you like. Create a branch from the HEAD of
-the `canon` branch, add your name to the [CONTRIBUTORS file][contributors],
-commit that change and open a PR:
+You need to [fork ppb][fork]. This creates a copy of the ppb repository under
+your GitHub account. You'll push changes there and create a pull request (PR) to
+the main ppb repository once your contribution is ready.
 
-- Include "WIP" in the title or make a [draft pull request][draftpr]
-- Reference the issue you want to work on in the body of the PR.
+Then you need to clone the repository and set up a Python virtual environment
+(sometimes referred to as "venv" or "virtualenv"). This is where you'll install
+ppb's dependencies, as well as ppb itself in "editable mode". Editable mode
+means that as you make changes to ppb, you don't need to reinstall it in order
+for Python to "see" those changes.
 
-The editable installation mode implies that the source code of PursuedPyBear being installed is available in a local directory. Once PursuedPyBear is installed in editable mode, users expect that changes to the PursuedPyBear python code in the local source tree become effective without the need of a new installation step. To do an editable installation:
+Replace `{username}` in the `clone` command below with your GitHub username.
 
-    mkdir ppb
-    python3 -m venv ppb-venv
-    source ppb-venv/bin/activate
-    cd ppb-venv
-    git clone https://github.com/ppb/pursuedpybear.git
-    cd pursuedpybear
-    pip install --upgrade -r requirements-test.txt
-    pip install --editable .
+```
+git clone https://github.com/{username}/pursuedpybear
+cd pursuedpybear
+git remote add upstream https://github.com/ppb/pursuedpybear
+python3 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade -r requirements-tests.txt
+pip install --editable .
+```
+
+The `git clone` command created a "git remote" pointing at your fork. The
+`git remote` command added another remote called "upstream" with points to the
+official ppb repository.
+
+Editors like VS Code or PyCharm know how to use the `.venv` automatically. If
+you open a new terminal though, you'll need to activate it again with the
+`source .venv/bin/activate` command.
+
+Find a ticket your like, such as one labeled [new contributor][]. Create a
+branch off of `canon` with a descriptive label, such as a word that summarizes
+the change.
+
+```
+git switch -c my-fix canon
+```
 
 Now get to work! Some tickets have detailed instructions: A maintainer
 mapped out the needs and wrote some instructions. Others are more open.
@@ -94,14 +113,36 @@ Start working, try to solve the problem. If you get stuck, ask
 questions in your open PR. The maintainers and active contributors are
 here to help.
 
-Make sure the PPB tests pass by installing the test dependencies and
-running the full test suite.
+You can add your name, and optionally email and social media link, to
+the [`CONTRIBUTORS.md` file][contributors] as part of your first PR.
 
-    pip install -r requirements-tests.txt
-    pytest
+Once you've made some changes, push them to a branch on your fork:
 
-Once you think it's ready, time to remove "WIP" from the title or hit
-the "Ready for review" button. Now someone senior in the project will
+```
+git push origin my-fix
+```
+
+Go to the ppb repository, the pull requests tab, and click the green
+"New pull request" button. There are two dropdowns, the left is the
+target, "canon", and on the right select your branch. Reference the
+issue your PR is addressing in the body, like `fixes #{issue}`, and 
+describe the change a bit. Make a [draft pull request][draftpr] or
+include "WIP" in the title.
+
+You can keep working and pushing more commits. As you work, you can make
+sure the tests pass by running `pytest`. It was installed as part of
+installing `requirements-tests.txt` above.
+
+```
+pytest
+```
+
+Tests for a lot of supported platforms will also be run as you push
+commits to your PR. If any fail, you can click to see the logs and what
+error came up.
+
+Once you think it's ready, press the "Ready for review" button on your draft PR,
+or remove "WIP" from the title. Now someone senior in the project will
 review. They'll either ask for changes or approve your PR. If you need
 to make changes, commit to your branch and push it up and it'll update
 the PR. Your reviewer will look again later.
