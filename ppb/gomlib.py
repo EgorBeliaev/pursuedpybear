@@ -54,8 +54,8 @@ class Children(Collection):
         if isinstance(tags, (str, bytes)):
             raise TypeError(
                 """You passed a string instead of an iterable, this probably isn't what you intended.
-                
-                Try making it a tuple."""
+
+Try making it a tuple."""
             )
 
         self._all.add(child)
