@@ -30,4 +30,5 @@ decisions are made, see the :doc:`/discussion/index` section.
    directions
    deprecations
    system
+   flags
    features/index
