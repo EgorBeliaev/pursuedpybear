@@ -6,6 +6,12 @@
 # full list see the documentation:
 # http://www.sphinx-doc.org/en/master/config
 
+try:
+    import importlib.metadata as metadata
+except ImportError:
+    import importlib_metadata as metadata
+import re
+
 # -- Path setup --------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -20,14 +26,13 @@
 # -- Project information -----------------------------------------------------
 
 project = 'PursuedPyBear'
-copyright = '2018, Piper Thunstrom'
-author = 'Piper Thunstrom'
+copyright = '2018-2023, The PPB Community'
+author = 'The PPB Community'
 
-# The short X.Y version
-version = ''
 # The full version, including alpha/beta/rc tags
-release = ''
-
+release = metadata.version('ppb')
+# The short X.Y version
+version = re.match(r"(\d+\.\d+).*", release).group(1)
 
 # -- General configuration ---------------------------------------------------
 
@@ -42,6 +47,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
+    'sphinx.ext.intersphinx',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -61,7 +67,7 @@ master_doc = 'index'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -77,7 +83,7 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+html_theme = "furo"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -132,7 +138,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'PursuedPyBear.tex', 'PursuedPyBear Documentation',
-     'Piper Thunstrom', 'manual'),
+     'The PPB Community', 'manual'),
 ]
 
 
@@ -178,7 +184,16 @@ epub_exclude_files = ['search.html']
 
 # -- Extension configuration -------------------------------------------------
 
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3', None),
+}
+
 # -- Options for todo extension ----------------------------------------------
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
+
+
+# -- autodoc configuration
+autodoc_mock_imports = ['sdl2']
+autoclass_content = 'both'

@@ -1,4 +1,4 @@
-.. py:currentmodule:: ppb.assets
+.. py:module:: ppb.assets
 
 Assets
 ======
@@ -34,6 +34,13 @@ system and the data logistics.
 
         Called in the background thread.
 
+    .. automethod:: free()
+
+    .. automethod:: load(timeout: float = None)
+
+    .. automethod:: is_loaded()
+
+
 
 Subclassing
 ~~~~~~~~~~~
@@ -42,7 +49,7 @@ Subclassing
 file-based assets. These make the consolidation, background-loading, and other
 aspects of :py:class:`Asset` possible.
 
-You should really only implement two methods:
+You should really only implement three methods:
 
 * :py:meth:`background_parse()`: This is called with the loaded data and returns
   an object constructed from that data. This is called from a background thread
@@ -52,11 +59,15 @@ You should really only implement two methods:
   needed to turn a pile of bytes into a useful data structure.
 
 * :py:meth:`file_missing()`: This is called if the asset is not found. Defining
-  this method surpresses :py:meth:`load()` from raising a
+  this method suppresses :py:meth:`load()` from raising a
   :py:exc:`FileNotFoundError` and will instead call this, and
   :py:meth:`load()` will return what this returns.
 
   For example, :py:class:`ppb.Image` uses this to produce the default square.
+
+* :py:meth:`free()`: This is to clean up any resources that would not normally
+  be cleaned up by Python's garbage collector. If you are integrating external
+  libraries, you may need this.
 
 
 Concrete Assets
@@ -71,8 +82,9 @@ useful.
     Loads an image file and parses it into a form usable by the renderer.
 
 .. autoclass:: ppb.Sound
+    :noindex:
 
-    Loads and decodes an image file. Wave and Ogg Vorbis are supported.
+    Loads and decodes an image file. A variety of formats are supported.
 
 
 
@@ -88,11 +100,16 @@ delegates to actual :py:class:`ppb.Image` instances.
 .. autoclass:: ppb.assetlib.AbstractAsset
     :members:
 
-.. autoclass:: ppb.Circle
+.. autoclass:: ppb.Rectangle
 
 
-.. autoclass:: ppb.Square
+.. autoclass:: ppb.Ellipse
 
 
 .. autoclass:: ppb.Triangle
 
+
+.. autoclass:: ppb.Circle
+
+
+.. autoclass:: ppb.Square

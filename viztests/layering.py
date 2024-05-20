@@ -1,7 +1,7 @@
 """
 Visual test of the layering system.
 
-The green circle mover should render above the purple up arrows and below
+The grey circle mover should render above the purple up arrows and below
 the yellow down arrows.
 """
 from itertools import cycle
@@ -9,8 +9,8 @@ from itertools import cycle
 import ppb
 
 
-class Mover(ppb.BaseSprite):
-    image = ppb.Image("viztests/resources/mover.png")
+class Mover(ppb.Sprite):
+    image = ppb.Image("resources/mover.png")
     position = ppb.Vector(0, -4)
     velocity = ppb.Vector(0, 3)
 
@@ -20,13 +20,13 @@ class Mover(ppb.BaseSprite):
             self.velocity *= -1
 
 
-class TravelOver(ppb.BaseSprite):
-    image = ppb.Image("viztests/resources/travel_over.png")
+class TravelOver(ppb.Sprite):
+    image = ppb.Image("resources/travel_over.png")
     layer = -1
 
 
-class TravelUnder(ppb.BaseSprite):
-    image = ppb.Image("viztests/resources/travel_under.png")
+class TravelUnder(ppb.Sprite):
+    image = ppb.Image("resources/travel_under.png")
     layer = 1
 
 

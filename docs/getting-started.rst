@@ -13,7 +13,7 @@ classes extensively in ppb, and you should be comfortable with them. Consider
 the `Python.org tutorial <https://docs.python.org/3/tutorial/index.html>`_ or
 `automate the boring stuff <http://automatetheboringstuff.com/>`_ to get started.
 
-Additionally, you need to have Python 3.6 or later on your machine. You can
+Additionally, you need to have Python 3.9 or later on your machine. You can
 install this via `Python.org <https://www.python.org/downloads/>`_ or
 `Anaconda <https://www.anaconda.com/python-3-7-package-build-out-miniconda-release/>`_
 whichever is more comfortable for you.
@@ -48,7 +48,9 @@ use the right command.
 
 Windows::
 
-   .venv/bin/activate.bat
+   .venv\Scripts\activate.bat
+
+.. note:: If you are installing ppb on WSL2 please refer to the Ubuntu section, below.
 
 Linux and Mac::
 
@@ -102,7 +104,7 @@ drawn to the screen. Add the following code after your ``import``. Note that
    import ppb
 
 
-   class Player(ppb.BaseSprite):
+   class Player(ppb.Sprite):
        pass
 
 
@@ -124,7 +126,7 @@ class, we're going to add a function and some class attributes.
 
 ``main.py``::
 
-   class Player(ppb.BaseSprite):
+   class Player(ppb.Sprite):
        velocity = ppb.Vector(0, 1)
 
        def on_update(self, update_event, signal):
@@ -138,7 +140,7 @@ Taking Control
 This is cool, but most people expect a game to be something you can interact
 with. Let's use keyboard controls to move our ``Player`` around. First things
 first, we have some new things we want to import:
-
+  
 ``main.py``::
 
    import ppb
@@ -150,9 +152,12 @@ These are the classes we'll want in the next section to work.
 The next step is we'll need to redo out ``Player`` class. Go ahead and delete
 it, and put this in its place:
 
+.. warning::
+   Make sure to delete the existing ``Player``
+
 ``main.py``::
 
-   class Player(ppb.BaseSprite):
+   class Player(ppb.Sprite):
        position = ppb.Vector(0, -3)
        direction = ppb.Vector(0, 0)
        speed = 4
@@ -164,8 +169,8 @@ This new ``Player`` moves a certain distance based on time, and a direction
 vector and its own speed. Right now, our direction is not anything (it's the
 zero-vector), but we'll change that in a moment. For now, go ahead and run the
 program a few times, changing the parameters to the ``direction`` ``Vector`` and
-the speed and see what happens. You can also modify ``position`` to see where
-you like your ship.
+the speed and see what happens. You can also modify ``position`` to change the 
+``Player`` starting position.
 
 Now that you're comfortable with the base mechanics of our new class, revert
 your changes to ``position``, ``speed``, and ``direction``. Then we can wire up
@@ -176,7 +181,7 @@ set as class variables so we can change them later:
 
 ``main.py``::
 
-   class Player(ppb.BaseSprite):
+   class Player(ppb.Sprite):
        position = ppb.Vector(0, -3)
        direction = ppb.Vector(0, 0)
        speed = 4
@@ -194,7 +199,7 @@ don't worry, just add the new methods at the end of the class, beneath your
 
 ``main.py``::
 
-   class Player(ppb.BaseSprite):
+   class Player(ppb.Sprite):
 
 
        def on_key_pressed(self, key_event: KeyPressed, signal):
@@ -224,17 +229,17 @@ First, we need a new class. We'll put it under ``Player``, but above ``setup``.
 
 ``main.py``::
 
-   class Projectile(ppb.BaseSprite):
-      size = 0.25
-      direction = ppb.Vector(0, 1)
-      speed = 6
+   class Projectile(ppb.Sprite):
+       size = 0.25
+       direction = ppb.Vector(0, 1)
+       speed = 6
 
-      def on_update(self, update_event, signal):
-          if self.direction:
-              direction = self.direction.normalize()
-          else:
-              direction = self.direction
-          self.position += direction * self.speed * update_event.time_delta
+       def on_update(self, update_event, signal):
+           if self.direction:
+               direction = self.direction.normalize()
+           else:
+               direction = self.direction
+           self.position += direction * self.speed * update_event.time_delta
 
 If we wanted to, we could pull out this ``on_update`` function into a mixin that
 we could use with either of these classes, but I'm going to leave that as an
@@ -251,7 +256,7 @@ after the line about ``speed`` and the ``new elif`` will go inside your
 
 ``main.py``::
 
-   class Player(ppb.BaseSprite):
+   class Player(ppb.Sprite):
 
        right = keycodes.Right
        projector = keycodes.Space
@@ -276,7 +281,7 @@ class, add
 
 ``main.py``::
 
-   class Target(ppb.BaseSprite):
+   class Target(ppb.Sprite):
 
        def on_update(self, update_event, signal):
            for p in update_event.scene.get(kind=Projectile):

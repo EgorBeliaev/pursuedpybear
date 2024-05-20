@@ -1,4 +1,4 @@
-from time import monotonic
+
 from unittest.mock import Mock
 
 from pytest import mark
@@ -7,14 +7,15 @@ from pytest import raises
 import ppb.testutils as testutil
 from ppb.events import Idle
 from ppb.events import Quit
+from ppb.utils import get_time
 
 
-@mark.parametrize("loop_count", range(1, 6))
+@mark.parametrize("loop_count", list(range(1, 6)))
 def test_quitter(loop_count):
     quitter = testutil.Quitter(loop_count=loop_count)
     signal_mock = Mock()
     for i in range(loop_count):
-        quitter.__event__(Idle(.01), signal_mock)
+        quitter.on_idle(Idle(.01), signal_mock)
     signal_mock.assert_called_once()
     assert len(signal_mock.call_args[0]) == 1
     assert len(signal_mock.call_args[1]) == 0
@@ -25,20 +26,20 @@ def test_failer_immediate():
     failer = testutil.Failer(fail=lambda e: True, message="Expected failure.", engine=None)
 
     with raises(AssertionError):
-        failer.__event__(Idle(0.0), lambda x: None)
+        failer.on_idle(Idle(0.0), lambda x: None)
 
 
 def test_failer_timed():
     failer = testutil.Failer(fail=lambda e: False, message="Should time out", run_time=0.1, engine=None)
 
-    start_time = monotonic()
+    start_time = get_time()
 
     while True:
         try:
-            failer.__event__(Idle(0.0), lambda x: None)
+            failer.on_idle(Idle(0.0), lambda x: None)
         except AssertionError as e:
             if e.args[0] == "Test ran too long.":
-                end_time = monotonic()
+                end_time = get_time()
                 break
             else:
                 raise
